@@ -15,6 +15,33 @@ app.use(cors());
 
 mongoose.connect("mongodb+srv://sinhaanishkumar1:AnishEcom7641@cluster0.9cow0k1.mongodb.net/Ecommerce-website");
 
+
+
+// const { MongoClient, ServerApiVersion } = require('mongodb');
+// const uri = "mongodb+srv://sinhaanishkumar1:AnishEcom7641@cluster0.9cow0k1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+// // Create a MongoClient with a MongoClientOptions object to set the Stable API version
+// const client = new MongoClient(uri, {
+//   serverApi: {
+//     version: ServerApiVersion.v1,
+//     strict: true,
+//     deprecationErrors: true,
+//   }
+// });
+
+// async function run() {
+//   try {
+//     const data=await client.connect();
+//     console.log(data,'data')
+//     await client.db("Ecommerce-website").command({ ping: 1 });
+//     console.log("Pinged your deployment. You successfully connected to MongoDB!");
+//   } finally {
+//     await client.close();
+//   }
+// }
+// run().catch(console.dir);
+
+
 //API Creation 
 
 app.get("/",(req,res)=>{
@@ -278,8 +305,9 @@ app.post('/getcart', fetchUser, async (req,res) =>{
 })  
 
 
-app.listen(port,(error)=>{
+app.listen(port,async (error)=>{
     if(!error){
+        // await client.connect(); 
         console.log("Server is running on port "+port);
     }
     else{
