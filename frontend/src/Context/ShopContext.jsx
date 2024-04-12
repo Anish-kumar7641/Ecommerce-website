@@ -69,6 +69,9 @@ const ShopContextProvider = (props) =>{
             .then((response)=>response.json())
             .then((data)=>console.log(data));
         }
+        else{
+            
+        }
     }
 
     const getTotalCartAmount = ()=> {

@@ -17,30 +17,6 @@ mongoose.connect("mongodb+srv://sinhaanishkumar1:AnishEcom7641@cluster0.9cow0k1.
 
 
 
-// const { MongoClient, ServerApiVersion } = require('mongodb');
-// const uri = "mongodb+srv://sinhaanishkumar1:AnishEcom7641@cluster0.9cow0k1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
-// // Create a MongoClient with a MongoClientOptions object to set the Stable API version
-// const client = new MongoClient(uri, {
-//   serverApi: {
-//     version: ServerApiVersion.v1,
-//     strict: true,
-//     deprecationErrors: true,
-//   }
-// });
-
-// async function run() {
-//   try {
-//     const data=await client.connect();
-//     console.log(data,'data')
-//     await client.db("Ecommerce-website").command({ ping: 1 });
-//     console.log("Pinged your deployment. You successfully connected to MongoDB!");
-//   } finally {
-//     await client.close();
-//   }
-// }
-// run().catch(console.dir);
-
 
 //API Creation 
 
@@ -67,7 +43,7 @@ app.use('/images',express.static('upload/images')) //whatever images stored in u
 app.post("/upload",upload.single('product'),(req,res)=>{
     res.json({
         success:1,
-        image_url:`https://ecommerce-website-polr.onrender.com/images/${req.file.filename}`
+        image_url:`https://ecommerce-website-polr.onrender.com/upload/images/${req.file.filename}`
     })
 })
 
