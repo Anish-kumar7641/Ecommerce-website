@@ -13,6 +13,25 @@ const AddProduct = () => {
         old_price: ""
     })
 
+    const uploadOnCloudinary = async (pic) => {
+        const data = new FormData();
+        data.append("file", pic);
+        data.append("upload_preset", "ecommerce");
+    
+        try {
+          const response = await fetch(
+            "https://api.cloudinary.com/v1_1/dopytmv8c/image/upload",
+            {
+              method: "post",
+              body: data,
+            }
+          );
+          const responseData = await response.json();
+          return responseData.secure_url;
+        } catch (error) {
+          console.log("Not uploaded in cloudinary");
+        }
+      };
 
     const imageHandler = (e) => {
         setImage(e.target.files[0]);
@@ -22,24 +41,26 @@ const AddProduct = () => {
     }
 
     const Add_Product = async () => {
-        console.log(productDetails);
+        // console.log(productDetails);
         let responseData;
         let product = productDetails; // copy of product object
         let formData = new FormData();
         formData.append('product', image); //append image in formdata
-
-        await fetch('https://ecommerce-website-polr.onrender.com/upload', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-            },
-            body: formData,
-        }).then((resp) => resp.json()).then((data) => { responseData = data }) //we will get response and we will parse data and save data in responseData variable
+        console.log('trying to upload data')
+        const data= await uploadOnCloudinary(image);
+        // await fetch('http://localhost:4000/upload', {
+        //     method: 'POST',
+        //     headers: {
+        //         Accept: 'application/json',
+        //     },
+        //     body: formData,
+        // }).then((resp) => resp.json()).then((data) => { responseData = data }) 
+        //we will get response and we will parse data and save data in responseData variable
 
 
         //sending product to addproduct endpoint
-        if (responseData.success) {
-            product.image = responseData.image_url;
+        if (data) {
+            product.image = data;
             console.log(product);
             await fetch ('https://ecommerce-website-polr.onrender.com/addproduct',{
                 method:'POST',
